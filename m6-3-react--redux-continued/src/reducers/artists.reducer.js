@@ -1,34 +1,22 @@
-import produce from 'immer';
+import produce from "immer";
 
 const initialState = {
   currentArtist: null,
-  status: 'loading',
+  status: "loading",
   error: null,
 };
 
-/*
-The 'type' for current artist will look like this:
-
-{
-  id: 'abc123',
-  profile: profile response,
-  topTracks: top tracks response,
-  relatedArtists: related artists response
-}
-
-*/
-
 export default function artists(state = initialState, action) {
   switch (action.type) {
-    case 'REQUEST_ALL_ARTIST_INFO': {
+    case "REQUEST_ALL_ARTIST_INFO": {
       return {
         ...state,
-        status: 'loading',
+        status: "loading",
       };
     }
 
-    case 'RECEIVE_ARTIST_PROFILE': {
-      return produce(state, draftState => {
+    case "RECEIVE_ARTIST_PROFILE": {
+      return produce(state, (draftState) => {
         if (!draftState.currentArtist) {
           draftState.currentArtist = {};
         }
@@ -38,8 +26,8 @@ export default function artists(state = initialState, action) {
       });
     }
 
-    case 'RECEIVE_RELATED_ARTISTS': {
-      return produce(state, draftState => {
+    case "RECEIVE_RELATED_ARTISTS": {
+      return produce(state, (draftState) => {
         if (!draftState.currentArtist) {
           draftState.currentArtist = {};
         }
@@ -48,8 +36,8 @@ export default function artists(state = initialState, action) {
       });
     }
 
-    case 'RECEIVE_TOP_TRACKS': {
-      return produce(state, draftState => {
+    case "RECEIVE_TOP_TRACKS": {
+      return produce(state, (draftState) => {
         if (!draftState.currentArtist) {
           draftState.currentArtist = {};
         }
@@ -58,17 +46,17 @@ export default function artists(state = initialState, action) {
       });
     }
 
-    case 'RECEIVE_ARTIST_ERROR': {
+    case "RECEIVE_ARTIST_ERROR": {
       return {
         ...state,
-        status: 'error',
+        status: "error",
       };
     }
 
-    case 'FINISH_RECEIVING_ALL_ARTIST_INFO': {
+    case "FINISH_RECEIVING_ALL_ARTIST_INFO": {
       return {
         ...state,
-        status: 'idle',
+        status: "idle",
       };
     }
 
@@ -78,5 +66,5 @@ export default function artists(state = initialState, action) {
   }
 }
 
-export const getArtist = state => state.artists.currentArtist;
-export const getArtistStatus = state => state.artists.status;
+export const getArtist = (state) => state.artists.currentArtist;
+export const getArtistStatus = (state) => state.artists.status;
